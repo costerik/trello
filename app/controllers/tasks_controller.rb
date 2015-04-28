@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_filter :get_users
 
   respond_to :html
 
@@ -43,5 +44,9 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :description, :time, :start_date, :finish_date, :user_id, :finished)
+    end
+
+    def get_users
+      @users = User.all.map { |user| [user.name,user.id] }
     end
 end
