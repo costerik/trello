@@ -14,6 +14,7 @@
     </tr>
   </thead>
 
+  <% if user_signed_in?%>
   <tbody>
     <% @tasks.each do |task| %>
     <%if task.finished==false%>
@@ -29,13 +30,28 @@
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      <%else%>
-        
+      <%end%>
+    <% end %>
+    <% @tasks.each do |task| %>
+    <%if task.finished==true%>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.time %></td>
+        <td><%= task.start_date %></td>
+        <td><%= task.finish_date %></td>
+        <td><%= task.user.full_name %></td>
+        <td><%= task.finished %></td>
+        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
       <%end%>
     <% end %>
   </tbody>
+  <% end %>
 </table>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Task', new_task_path, class:'button' %>
