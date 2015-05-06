@@ -17,7 +17,7 @@
   <% if user_signed_in?%>
   <tbody>
     <% @tasks.each do |task| %>
-    <%if task.finished==false%>
+    <%if task.finished==false and task.user_id == current_user.id %>
       <tr>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
@@ -33,7 +33,7 @@
       <%end%>
     <% end %>
     <% @tasks.each do |task| %>
-    <%if task.finished==true%>
+    <%if task.finished==true and task.user_id == current_user.id%>
       <tr>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
@@ -53,5 +53,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Task', new_task_path, class:'button' %>
+  <% if user_signed_in?%>
+    <%= link_to 'New Task', new_task_path, class:'button' %>
+  <% end %>

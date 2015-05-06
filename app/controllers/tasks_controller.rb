@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   respond_to :html
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(:finish_date)
     respond_with(@tasks)
   end
 
@@ -23,6 +23,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     @task.save
     respond_with(@task)
   end
